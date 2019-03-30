@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: multitenant data source
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+logging:
+  config: classpath:logback.xml
+multitenant:
+  hikari-config-builders:
+    - name: master
+      hikari-config:
+        driver-class-name: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+        url: jdbc:mysql://db2.hellowd.com/bi
+        username: dbuser
+        password: "@qlalfqjsgh!"
+        min-idle: 1
+        max-pool-size: 2
+    - name: slave
+      hikari-config:
+        driver-class-name: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+        url: jdbc:mysql://14.63.226.82/bi
+        username: reader
+        password: reader987
+        min-idle: 1
+        max-pool-size: 2
